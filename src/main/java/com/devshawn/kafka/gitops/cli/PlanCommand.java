@@ -4,11 +4,7 @@ import com.devshawn.kafka.gitops.MainCommand;
 import com.devshawn.kafka.gitops.StateManager;
 import com.devshawn.kafka.gitops.config.ManagerConfig;
 import com.devshawn.kafka.gitops.domain.plan.DesiredPlan;
-import com.devshawn.kafka.gitops.exception.KafkaExecutionException;
-import com.devshawn.kafka.gitops.exception.MissingConfigurationException;
-import com.devshawn.kafka.gitops.exception.PlanIsUpToDateException;
-import com.devshawn.kafka.gitops.exception.ValidationException;
-import com.devshawn.kafka.gitops.exception.WritePlanOutputException;
+import com.devshawn.kafka.gitops.exception.*;
 import com.devshawn.kafka.gitops.service.ParserService;
 import com.devshawn.kafka.gitops.util.LogUtil;
 import picocli.CommandLine;
@@ -49,6 +45,8 @@ public class PlanCommand implements Callable<Integer> {
             LogUtil.printKafkaExecutionError(ex);
         } catch (WritePlanOutputException ex) {
             LogUtil.printPlanOutputError(ex);
+        } catch (SchemaRegistryExecutionException ex) {
+            LogUtil.printSchemaRegistryExecutionError(ex);
         }
         return 2;
     }
