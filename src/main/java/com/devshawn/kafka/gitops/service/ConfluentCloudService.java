@@ -24,7 +24,7 @@ public class ConfluentCloudService {
     public List<ServiceAccount> getServiceAccounts() {
         log.info("Fetching service account list from Confluent Cloud via confluent tool.");
         try {
-            String result = execCmd(new String[]{confluentExecutable, "service-account", "list", "-o", "json"});
+            String result = execCmd(new String[]{confluentExecutable, "iam", "service-account", "list", "-o", "json"});
             return objectMapper.readValue(result, new TypeReference<List<ServiceAccount>>() {
             });
         } catch (IOException ex) {
